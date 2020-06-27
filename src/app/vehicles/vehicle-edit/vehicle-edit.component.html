@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="matricula">Matricula</label>
+            <input
+              type="text"
+              id="matricula"
+              class="form-control"
+              formControlName="matricula"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="model">Modelo</label>
+            <input
+              type="text"
+              id="model"
+              formControlName="model"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="color">Color</label>
+            <input
+              type="text"
+              id="color"
+              formControlName="color"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!vehicleForm.valid"
+          >
+            Guardar
+          </button>
+          |
+          <button type="button" class="btn btn-danger" (click)="onCancel()">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
