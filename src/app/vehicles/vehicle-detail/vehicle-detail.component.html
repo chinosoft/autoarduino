@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>{{ vehicle.model }}</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    {{ vehicle.matricula }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <ng-container
+        *ngFor="
+          let vehicleElem of vehicle.data;
+          let i = index;
+          first as isFirst;
+          last as isLast
+        "
+      >
+        <li class="list-group-item" *ngIf="isLast">
+          Velocidad: {{ vehicleElem.speed }} Km/h
+        </li>
+        <li class="list-group-item" *ngIf="isLast">
+          Combustible: {{ vehicleElem.fuel }}%
+        </li>
+        <li class="list-group-item" *ngIf="isLast">
+          Capacidad: {{ vehicleElem.capacity }} Kg
+        </li>
+      </ng-container>
+    </ul>
+    <button type="button" class="btn btn-primary" (click)="onEditVehicle()">
+      Editar Auto
+    </button>
+    |
+    <button type="button" class="btn btn-danger" (click)="onDeleteVehicle()">
+      Eliminar Auto
+    </button>
+  </div>
+</div>
