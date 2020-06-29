@@ -28,10 +28,7 @@ export class DataStorageService {
       take(1),
       exhaustMap((user) => {
         return this.http.get<Vehicle[]>(
-          "https://autoarduino-2b80f.firebaseio.com/Cars.json",
-          {
-            params: new HttpParams().set("auth", user.token),
-          }
+          "https://autoarduino-2b80f.firebaseio.com/Cars.json"
         );
       }),
       map((vehicles) => {

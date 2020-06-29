@@ -18,7 +18,12 @@
           <a routerLink="/auth">Iniciar Sesion</a>
         </li>
         <li routerLinkActive="active" *ngIf="isAuthenticated">
-          <a routerLink="/**">Cerrar Sesion</a>
+          <a
+            style="cursor: pointer;"
+            (click)="onLogout()"
+            routerLink="/vehicles"
+            >Cerrar Sesion</a
+          >
         </li>
       </ul>
     </div>

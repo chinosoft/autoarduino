@@ -6,12 +6,14 @@ import { VehicleDetailComponent } from "./vehicles/vehicle-detail/vehicle-detail
 import { VehicleEditComponent } from "./vehicles/vehicle-edit/vehicle-edit.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { AuthGuard } from "./auth/auth.guard";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/vehicles", pathMatch: "full" },
   {
     path: "vehicles",
     component: VehiclesComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: "", component: VehicleStartComponent },
       { path: "new", component: VehicleEditComponent },
