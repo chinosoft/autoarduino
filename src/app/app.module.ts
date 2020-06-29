@@ -1,8 +1,10 @@
+import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
 import { HeaderComponent } from "./header/header.component";
 import { AuthComponent } from "./auth/auth.component";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
 import { VehiclesComponent } from "./vehicles/vehicles.component";
@@ -14,6 +16,7 @@ import { VehicleStartComponent } from "./vehicles/vehicle-start/vehicle-start.co
 import { VehicleItemComponent } from "./vehicles/vehicle-list/vehicle-item/vehicle-item.component";
 import { AdministratorComponent } from "./administrator/administrator.component";
 import { VehicleService } from "./services/vehicle.service";
+import { AuthInterceptorService } from "./services/auth-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -27,9 +30,23 @@ import { VehicleService } from "./services/vehicle.service";
     VehicleListComponent,
     VehicleStartComponent,
     VehicleItemComponent,
+    LoadingSpinnerComponent,
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule],
-  providers: [VehicleService],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+  ],
+  providers: [
+    VehicleService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

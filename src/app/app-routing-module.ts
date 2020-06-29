@@ -1,3 +1,4 @@
+import { AuthComponent } from "./auth/auth.component";
 import { AdministratorComponent } from "./administrator/administrator.component";
 import { VehiclesComponent } from "./vehicles/vehicles.component";
 import { VehicleStartComponent } from "./vehicles/vehicle-start/vehicle-start.component";
@@ -5,12 +6,14 @@ import { VehicleDetailComponent } from "./vehicles/vehicle-detail/vehicle-detail
 import { VehicleEditComponent } from "./vehicles/vehicle-edit/vehicle-edit.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { AuthGuard } from "./auth/auth.guard";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/vehicles", pathMatch: "full" },
   {
     path: "vehicles",
     component: VehiclesComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: "", component: VehicleStartComponent },
       { path: "new", component: VehicleEditComponent },
@@ -19,6 +22,7 @@ const appRoutes: Routes = [
     ],
   },
   { path: "admin-view", component: AdministratorComponent },
+  { path: "auth", component: AuthComponent },
   { path: "**", redirectTo: "/vehicles" },
 ];
 

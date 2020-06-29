@@ -1,3 +1,4 @@
+import { DataStorageService } from "./../../services/data-storage.service";
 import { VehicleService } from "./../../services/vehicle.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Vehicle } from "../vehicle.model";
@@ -14,6 +15,7 @@ export class VehicleDetailComponent implements OnInit {
 
   constructor(
     private vehicleService: VehicleService,
+    private dataStorageService: DataStorageService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -27,6 +29,7 @@ export class VehicleDetailComponent implements OnInit {
 
   onDeleteVehicle() {
     this.vehicleService.deleteVehicle(this.id);
+    this.dataStorageService.deleteVehicle(this.id);
     this.router.navigate(["/vehicles"]);
   }
 
