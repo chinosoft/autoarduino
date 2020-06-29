@@ -35,15 +35,12 @@ export class VehicleEditComponent implements OnInit {
     } else {
       this.vehicleService.addVehicle(this.vehicleForm.value);
     }
+    this.dataStorageService.storeVehicle();
     this.onCancel();
   }
 
   onCancel() {
     this.router.navigate(["../"], { relativeTo: this.route });
-  }
-
-  onSaveData() {
-    this.dataStorageService.storeVehicle();
   }
 
   private initForm() {
