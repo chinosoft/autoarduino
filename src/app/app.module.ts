@@ -1,8 +1,10 @@
+import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
 import { HeaderComponent } from "./header/header.component";
 import { AuthComponent } from "./auth/auth.component";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
 import { VehiclesComponent } from "./vehicles/vehicles.component";
@@ -27,8 +29,15 @@ import { VehicleService } from "./services/vehicle.service";
     VehicleListComponent,
     VehicleStartComponent,
     VehicleItemComponent,
+    LoadingSpinnerComponent,
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+  ],
   providers: [VehicleService],
   bootstrap: [AppComponent],
 })

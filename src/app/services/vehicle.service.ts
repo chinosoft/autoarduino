@@ -9,28 +9,12 @@ export class VehicleService {
 
   constructor() {}
 
-  private vehicles: Vehicle[] = [
-    new Vehicle("ABC132", "Rojo", "Toyota", [
-      new VehicleData(
-        320,
-        15,
-        100,
-        new Date("1994/12/31").toLocaleDateString("es-ES")
-      ),
-      new VehicleData(
-        150,
-        90,
-        400,
-        new Date(Date.now()).toLocaleDateString("es-ES")
-      ),
-      new VehicleData(
-        60,
-        20,
-        200,
-        new Date("2028/08/25").toLocaleDateString("es-ES")
-      ),
-    ]),
-  ];
+  private vehicles: Vehicle[] = [];
+
+  setVehicles(vehicles: Vehicle[]) {
+    this.vehicles = vehicles;
+    this.vehiclesChanged.next(this.vehicles.slice());
+  }
 
   getVehicles() {
     return this.vehicles.slice();

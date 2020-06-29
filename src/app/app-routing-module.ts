@@ -1,3 +1,4 @@
+import { AuthComponent } from "./auth/auth.component";
 import { AdministratorComponent } from "./administrator/administrator.component";
 import { VehiclesComponent } from "./vehicles/vehicles.component";
 import { VehicleStartComponent } from "./vehicles/vehicle-start/vehicle-start.component";
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     ],
   },
   { path: "admin-view", component: AdministratorComponent },
+  { path: "auth", component: AuthComponent },
   { path: "**", redirectTo: "/vehicles" },
 ];
 

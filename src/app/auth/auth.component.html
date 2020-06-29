@@ -1,17 +1,85 @@
 <div class="row">
-  <div class="col-xs-12">
-    <form>
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <h3 class="form-group" style="text-align: center;">
+      {{ isLoginMode ? "Iniciar Sesion" : "Registrarse" }}
+    </h3>
+    <div class="alert alert-danger" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
+    <div *ngIf="isLoading" style="text-align: center;">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+      <div class="form-group" *ngIf="!isLoginMode">
+        <label for="text">Nombre y Apellido</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          ngModel
+          name="name"
+          required
+        />
+      </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="text" id="email" class="form-control" />
+        <input
+          type="text"
+          id="email"
+          class="form-control"
+          ngModel
+          name="email"
+          required
+          email
+        />
       </div>
       <div class="form-group">
         <label for="password">Contraseña</label>
-        <input type="password" id="password" class="form-control" />
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          ngModel
+          name="password"
+          required
+          minlength="6"
+        />
+      </div>
+      <div class="form-group" *ngIf="!isLoginMode">
+        <h4>Es Administrador?</h4>
+        <!-- Default unchecked -->
+        <div class="custom-control custom-radio">
+          <input
+            type="radio"
+            class="custom-control-input"
+            id="defaultUnchecked"
+            name="defaultExampleRadios"
+            checked
+            mdbInput
+          />
+          <label class="custom-control-label" for="defaultUnchecked">No</label>
+        </div>
+
+        <!-- Default checked -->
+        <div class="custom-control custom-radio">
+          <input
+            type="radio"
+            class="custom-control-input"
+            id="defaultChecked"
+            name="defaultExampleRadios"
+            mdbInput
+          />
+          <label class="custom-control-label" for="defaultChecked">Si</label>
+        </div>
       </div>
       <div>
-        <button class="btn btn-primary">Iniciar Sesion</button> |
-        <button class="btn btn-primary">Registrarse</button>
+        <button class="btn btn-primary" [disabled]="!authForm.valid">
+          {{ isLoginMode ? "Iniciar Sesion" : "Registrar" }}
+        </button>
+        |
+        <button class="btn btn-primary" (click)="onSwitchMode()">
+          Cambiar a {{ isLoginMode ? "Registrarse" : "Iniciar Sesion" }}
+        </button>
       </div>
     </form>
   </div>

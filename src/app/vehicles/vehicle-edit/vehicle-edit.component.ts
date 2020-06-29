@@ -1,3 +1,4 @@
+import { DataStorageService } from "./../../services/data-storage.service";
 import { VehicleService } from "./../../services/vehicle.service";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
@@ -16,6 +17,7 @@ export class VehicleEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private vehicleService: VehicleService,
+    private dataStorageService: DataStorageService,
     private router: Router
   ) {}
 
@@ -38,6 +40,10 @@ export class VehicleEditComponent implements OnInit {
 
   onCancel() {
     this.router.navigate(["../"], { relativeTo: this.route });
+  }
+
+  onSaveData() {
+    this.dataStorageService.storeVehicle();
   }
 
   private initForm() {

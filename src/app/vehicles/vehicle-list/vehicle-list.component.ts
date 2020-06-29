@@ -1,3 +1,4 @@
+import { DataStorageService } from "./../../services/data-storage.service";
 import { VehicleService } from "./../../services/vehicle.service";
 import { Vehicle } from "../vehicle.model";
 import { Component, OnInit, OnDestroy } from "@angular/core";
@@ -15,6 +16,7 @@ export class VehicleListComponent implements OnInit, OnDestroy {
 
   constructor(
     private vehicleService: VehicleService,
+    private dataStorageService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -26,6 +28,7 @@ export class VehicleListComponent implements OnInit, OnDestroy {
       }
     );
     this.vehicles = this.vehicleService.getVehicles();
+    this.dataStorageService.fetchVehicles().subscribe();
   }
 
   onNewCar() {
