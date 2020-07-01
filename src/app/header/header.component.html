@@ -9,7 +9,7 @@
         <li routerLinkActive="active" *ngIf="isAuthenticated">
           <a routerLink="/vehicles">Vehiculos</a>
         </li>
-        <li routerLinkActive="active" *ngIf="isAuthenticated">
+        <li routerLinkActive="active" *ngIf="isAuthenticated && isAdmin">
           <a routerLink="/admin-view">Administrador</a>
         </li>
       </ul>

@@ -18,6 +18,7 @@ export interface AuthResponseData {
 @Injectable({ providedIn: "root" })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
+  userAdmin = false;
   private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -58,6 +59,7 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap((resData) => {
+          this.getIsAdmin(resData.email);
           this.handleAuthentication(
             resData.email,
             resData.localId,
@@ -66,6 +68,14 @@ export class AuthService {
           );
         })
       );
+  }
+
+  getIsAdmin(email: string) {
+    this.userAdmin = email == "admin@admin.com";
+  }
+
+  isAdmin() {
+    return this.userAdmin;
   }
 
   autoLogin() {
