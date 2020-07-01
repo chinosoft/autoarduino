@@ -1,0 +1,15 @@
+.class {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.contenedor {
+  display: flex;
+  justify-content: flex-start;
+}
+.contenedor > * {
+  margin-right: 16px;
+}
+.contenedor > *:last-child {
+  margin-right: 0;
+}
