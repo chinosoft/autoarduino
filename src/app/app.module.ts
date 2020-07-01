@@ -5,6 +5,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { GaugeChartModule } from "angular-gauge-chart";
 
 import { AppComponent } from "./app.component";
 import { VehiclesComponent } from "./vehicles/vehicles.component";
@@ -17,6 +18,9 @@ import { VehicleItemComponent } from "./vehicles/vehicle-list/vehicle-item/vehic
 import { AdministratorComponent } from "./administrator/administrator.component";
 import { VehicleService } from "./services/vehicle.service";
 import { AuthInterceptorService } from "./services/auth-interceptor.service";
+import { SpeedometerComponent } from "./shared/sensor-list/speedometer/speedometer.component";
+import { FuelMeterComponent } from "./shared/sensor-list/fuel-meter/fuel-meter.component";
+import { CapacityComponent } from './shared/sensor-list/capacity/capacity.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,9 @@ import { AuthInterceptorService } from "./services/auth-interceptor.service";
     VehicleStartComponent,
     VehicleItemComponent,
     LoadingSpinnerComponent,
+    SpeedometerComponent,
+    FuelMeterComponent,
+    CapacityComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +45,7 @@ import { AuthInterceptorService } from "./services/auth-interceptor.service";
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    GaugeChartModule,
   ],
   providers: [
     VehicleService,
