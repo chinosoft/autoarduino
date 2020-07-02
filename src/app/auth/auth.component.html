@@ -45,33 +45,6 @@
           minlength="6"
         />
       </div>
-      <div class="form-group" *ngIf="!isLoginMode">
-        <h4>Es Administrador?</h4>
-        <!-- Default unchecked -->
-        <div class="custom-control custom-radio">
-          <input
-            type="radio"
-            class="custom-control-input"
-            id="defaultUnchecked"
-            name="defaultExampleRadios"
-            checked
-            mdbInput
-          />
-          <label class="custom-control-label" for="defaultUnchecked">No</label>
-        </div>
-
-        <!-- Default checked -->
-        <div class="custom-control custom-radio">
-          <input
-            type="radio"
-            class="custom-control-input"
-            id="defaultChecked"
-            name="defaultExampleRadios"
-            mdbInput
-          />
-          <label class="custom-control-label" for="defaultChecked">Si</label>
-        </div>
-      </div>
       <div>
         <button class="btn btn-primary" [disabled]="!authForm.valid">
           {{ isLoginMode ? "Iniciar Sesion" : "Registrar" }}

@@ -10,30 +10,17 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <ul class="list-group">
-      <ng-container
-        *ngFor="
-          let vehicleElem of vehicle.data;
-          let i = index;
-          first as isFirst;
-          last as isLast
-        "
-      >
-        <li class="list-group-item" *ngIf="isLast">
-          Velocidad: {{ vehicleElem.speed }} Km/h
-        </li>
-        <li class="list-group-item" *ngIf="isLast">
-          Combustible: {{ vehicleElem.fuel }}%
-        </li>
-        <li class="list-group-item" *ngIf="isLast">
-          Capacidad: {{ vehicleElem.capacity }} Kg
-        </li>
-      </ng-container>
-    </ul>
+    <div class="class">
+      <app-speedometer></app-speedometer>
+      <app-fuel-meter></app-fuel-meter>
+      <app-capacity></app-capacity>
+    </div>
+    <hr />
+  </div>
+  <div class="contenedor col-xs-12">
     <button type="button" class="btn btn-primary" (click)="onEditVehicle()">
       Editar Auto
     </button>
-    |
     <button type="button" class="btn btn-danger" (click)="onDeleteVehicle()">
       Eliminar Auto
     </button>
