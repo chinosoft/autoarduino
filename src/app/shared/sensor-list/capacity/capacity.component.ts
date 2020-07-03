@@ -8,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
 export class CapacityComponent implements OnInit {
   public chartWidth = 230;
   public needleValue = 90;
-  public name = "Combustible";
+  public name = "Capacidad";
 
   public options = {
     hasNeedle: true,
