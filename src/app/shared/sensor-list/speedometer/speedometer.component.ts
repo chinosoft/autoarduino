@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { interval, Subscription } from "rxjs";
 
 @Component({
   selector: "app-speedometer",
@@ -6,15 +7,18 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./speedometer.component.css"],
 })
 export class SpeedometerComponent implements OnInit {
+  mySubscription: Subscription;
+
   public canvasWidth = 230;
-  public needleValue = 100;
+  public needleValue = 0;
   public centralLabel = "";
   public name = "Velocímetro";
-  public bottomLabel = "180";
+  public bottomLabel = "0";
   public options = {
     hasNeedle: true,
     needleColor: "black",
-    needleStartValue: 30,
+    needleStartValue: 0,
+    needleUpdateSpeed: 100,
     arcColors: ["rgb(61,204,91)", "rgb(239,214,19)", "rgb(255,84,84)"],
     arcDelimiters: [35, 75],
     rangeLabel: ["0", "180 Km/h"],
@@ -22,5 +26,18 @@ export class SpeedometerComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  loop() {
+    let numb = 0;
+    this.mySubscription = interval(100).subscribe((test) => {
+      if (numb !== 180) {
+        numb++;
+        this.bottomLabel = String(numb);
+        this.needleValue = (numb * 100) / 180;
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.loop();
+  }
 }
