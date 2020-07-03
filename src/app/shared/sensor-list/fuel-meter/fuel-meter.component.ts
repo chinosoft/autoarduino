@@ -15,8 +15,8 @@ export class FuelMeterComponent implements OnInit {
     hasNeedle: true,
     needleColor: "gray",
     needleUpdateSpeed: 1000,
-    arcColors: ["rgb(61,204,91)", "rgb(239,214,19)", "rgb(255,84,84)"],
-    arcDelimiters: [30, 75],
+    arcColors: ["rgb(255,84,84)", "rgb(239,214,19)", "rgb(61,204,91)"],
+    arcDelimiters: [4, 35],
     rangeLabel: ["E", "F"],
     needleStartValue: 20,
   };
