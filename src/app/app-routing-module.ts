@@ -7,6 +7,7 @@ import { VehicleEditComponent } from "./vehicles/vehicle-edit/vehicle-edit.compo
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AuthGuard } from "./auth/auth.guard";
+import { AdminGuard } from "./auth/admin.guard";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/vehicles", pathMatch: "full" },
@@ -21,7 +22,11 @@ const appRoutes: Routes = [
       { path: ":id/edit", component: VehicleEditComponent },
     ],
   },
-  { path: "admin-view", component: AdministratorComponent },
+  {
+    path: "admin-view",
+    canActivate: [AuthGuard, AdminGuard],
+    component: AdministratorComponent,
+  },
   { path: "auth", component: AuthComponent },
   { path: "**", redirectTo: "/vehicles" },
 ];
