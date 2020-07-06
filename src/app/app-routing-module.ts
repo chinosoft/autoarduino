@@ -1,3 +1,6 @@
+import { SensorDetailComponent } from "./administrator/sensor-detail/sensor-detail.component";
+import { SensorEditComponent } from "./administrator/sensor-edit/sensor-edit.component";
+import { SensorStartComponent } from "./administrator/sensor-start/sensor-start.component";
 import { AuthComponent } from "./auth/auth.component";
 import { AdministratorComponent } from "./administrator/administrator.component";
 import { VehiclesComponent } from "./vehicles/vehicles.component";
@@ -24,8 +27,14 @@ const appRoutes: Routes = [
   },
   {
     path: "admin-view",
-    canActivate: [AuthGuard, AdminGuard],
     component: AdministratorComponent,
+    canActivate: [AuthGuard, AdminGuard],
+    children: [
+      { path: "", component: SensorStartComponent },
+      { path: "new", component: SensorEditComponent },
+      { path: ":id", component: SensorDetailComponent },
+      { path: ":id/edit", component: SensorEditComponent },
+    ],
   },
   { path: "auth", component: AuthComponent },
   { path: "**", redirectTo: "/vehicles" },
