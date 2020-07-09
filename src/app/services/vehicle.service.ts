@@ -21,7 +21,19 @@ export class VehicleService {
   }
 
   getVehicle(index: number) {
+    this.test(index);
     return this.vehicles[index];
+  }
+
+  getVehicleData(index: number) {
+    return this.vehicles[index].data;
+  }
+
+  test(index: number) {
+    const vehicleData = this.vehicles[index].data;
+    let lastElement = vehicleData.length;
+    lastElement++;
+    vehicleData[lastElement].speed;
   }
 
   addVehicle(vehicle: Vehicle) {
@@ -37,5 +49,13 @@ export class VehicleService {
   deleteVehicle(index: number) {
     this.vehicles.splice(index, 1);
     this.vehiclesChanged.next(this.vehicles.slice());
+  }
+
+  turnOnOffVehicle(onOrOff: boolean) {
+    if (onOrOff === true) {
+      console.log("Auto prendido.");
+    } else {
+      console.log("Auto Apagado.");
+    }
   }
 }

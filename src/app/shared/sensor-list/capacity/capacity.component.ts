@@ -6,6 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./capacity.component.css"],
 })
 export class CapacityComponent implements OnInit {
+  isEnable = true;
   public chartWidth = 230;
   public needleValue = 90;
   public name = "Capacidad";
@@ -20,4 +21,12 @@ export class CapacityComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  onSwitchMode() {
+    this.isEnable = !this.isEnable;
+  }
+
+  isSensorEnabled() {
+    return this.isEnable;
+  }
 }

@@ -3,6 +3,7 @@ import { DataStorageService } from "./../../services/data-storage.service";
 import { SensorService } from "./../../services/sensor.service";
 import { SensorData } from "./../../shared/sensordata.model";
 import { Component, OnInit } from "@angular/core";
+import { VehicleService } from "../../services/vehicle.service";
 
 @Component({
   selector: "app-sensor-detail",
@@ -15,10 +16,12 @@ export class SensorDetailComponent implements OnInit {
   velocimetroSelected = false;
   fuelSelected = false;
   capacitySelected = false;
+  isEnable = true;
 
   constructor(
     private sensorService: SensorService,
     private dataStorageService: DataStorageService,
+    private vehicleService: VehicleService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -29,6 +32,10 @@ export class SensorDetailComponent implements OnInit {
       this.sensor = this.sensorService.getSensor(this.id);
       this.onSwitchMode(this.sensor);
     });
+  }
+
+  switchMode() {
+    this.isEnable = !this.isEnable;
   }
 
   onSwitchMode(sensor: SensorData) {
@@ -59,5 +66,10 @@ export class SensorDetailComponent implements OnInit {
 
   onEditSensor() {
     this.router.navigate(["edit"], { relativeTo: this.route });
+  }
+
+  onTurnOnOffVehicle() {
+    this.switchMode();
+    this.vehicleService.turnOnOffVehicle(this.isEnable);
   }
 }

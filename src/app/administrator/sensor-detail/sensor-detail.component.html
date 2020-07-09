@@ -11,6 +11,16 @@
       <app-capacity *ngIf="capacitySelected"></app-capacity>
     </div>
     <hr />
+    <div>
+      <button
+        type="button"
+        [ngClass]="isEnable ? 'btn btn-success' : 'btn btn-danger'"
+        (click)="onTurnOnOffVehicle()"
+      >
+        {{ isEnable ? "Apagar" : "Prender" }} Auto
+      </button>
+    </div>
+    <hr />
   </div>
   <div class="contenedor col-xs-12">
     <button type="button" class="btn btn-primary" (click)="onEditSensor()">

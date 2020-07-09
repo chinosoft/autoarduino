@@ -26,6 +26,19 @@ export class DataStorageService {
       });
   }
 
+  storeVehicleData(id: number) {
+    const vehicleData = this.vehicleService.getVehicleData(id);
+
+    this.http
+      .post(
+        `https://autoarduino-2b80f.firebaseio.com/Cars/${id}/VehicleData.json`,
+        vehicleData
+      )
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+
   storeSensor() {
     const sensors = this.sensorService.getSensors();
     this.http
