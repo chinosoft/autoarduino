@@ -1,7 +1,6 @@
 import { Subject } from "rxjs";
 import { Vehicle } from "../vehicles/vehicle.model";
 import { Injectable } from "@angular/core";
-import { VehicleData } from "../shared/vehicledata.model";
 
 @Injectable()
 export class VehicleService {
@@ -41,13 +40,5 @@ export class VehicleService {
   deleteVehicle(index: number) {
     this.vehicles.splice(index, 1);
     this.vehiclesChanged.next(this.vehicles.slice());
-  }
-
-  turnOnOffVehicle(onOrOff: boolean) {
-    if (onOrOff === true) {
-      console.log("Auto prendido.");
-    } else {
-      console.log("Auto Apagado.");
-    }
   }
 }

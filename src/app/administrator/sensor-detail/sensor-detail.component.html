@@ -21,6 +21,18 @@
       </button>
     </div>
     <hr />
+    <div>
+      <div>
+        <button
+          type="button"
+          [ngClass]="isSensorEnable ? 'btn btn-success' : 'btn btn-danger'"
+          (click)="onSwtichSensorStatus()"
+        >
+          {{ isSensorEnable ? "Deshabilitar" : "Habilitar" }} Sensor
+        </button>
+      </div>
+    </div>
+    <hr />
   </div>
   <div class="contenedor col-xs-12">
     <button type="button" class="btn btn-primary" (click)="onEditSensor()">

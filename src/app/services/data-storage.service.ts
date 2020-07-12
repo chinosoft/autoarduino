@@ -7,6 +7,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { take, exhaustMap, map, tap } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Injectable({ providedIn: "root" })
 export class DataStorageService {
@@ -120,6 +121,20 @@ export class DataStorageService {
       .subscribe((response) => {
         console.log(response);
       });
+  }
+
+  saveTurnOnOrOffVehicle(onOrOff: boolean) {
+    this.http
+      .put(`https://autoarduino-2b80f.firebaseio.com/vehicleOn.json`, onOrOff)
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+
+  getVehicleStatus(): Observable<string> {
+    return this.http.get<string>(
+      `https://autoarduino-2b80f.firebaseio.com/vehicleOn.json`
+    );
   }
 
   deleteVehicle(id: number) {

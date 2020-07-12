@@ -48,7 +48,6 @@ export class SensorEditComponent implements OnInit {
     let sensorName = "";
     let sensorAlarm = "";
     let sensorEmail = "";
-    let sensorSaveEvery = "";
 
     if (this.editMode) {
       const sensor = this.sensorService.getSensor(this.id);
@@ -61,7 +60,6 @@ export class SensorEditComponent implements OnInit {
       name: new FormControl(sensorName, Validators.required),
       alarm: new FormControl(sensorAlarm, Validators.required),
       email: new FormControl(sensorEmail, Validators.required),
-      saveEvery: new FormControl(sensorSaveEvery, Validators.required),
     });
   }
 }
