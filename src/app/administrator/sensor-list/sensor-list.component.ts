@@ -36,6 +36,10 @@ export class SensorListComponent implements OnInit {
     this.router.navigate(["new"], { relativeTo: this.route });
   }
 
+  onEditSaveEvery() {
+    this.router.navigate(["save-every"], { relativeTo: this.route });
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

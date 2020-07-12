@@ -12,13 +12,15 @@
     </div>
     <hr />
     <div>
-      <button
-        type="button"
-        [ngClass]="isEnable ? 'btn btn-success' : 'btn btn-danger'"
-        (click)="onTurnOnOffVehicle()"
-      >
-        {{ isEnable ? "Apagar" : "Prender" }} Auto
-      </button>
+      <div>
+        <button
+          type="button"
+          [ngClass]="isSensorEnable ? 'btn btn-success' : 'btn btn-danger'"
+          (click)="onSwtichSensorStatus()"
+        >
+          {{ isSensorEnable ? "Deshabilitar" : "Habilitar" }} Sensor
+        </button>
+      </div>
     </div>
     <hr />
   </div>

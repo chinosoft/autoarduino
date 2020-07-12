@@ -37,4 +37,13 @@ export class SensorService {
     this.sensors.splice(index, 1);
     this.sensorChanged.next(this.sensors.slice());
   }
+
+  getStatus(index: number) {
+    const sensor = this.getSensor(index);
+    return sensor.isEnable;
+  }
+
+  limitExceeded(sensorName: string) {
+    console.log("Limite excedido del sensor " + sensorName);
+  }
 }

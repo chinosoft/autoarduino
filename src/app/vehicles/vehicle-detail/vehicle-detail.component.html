@@ -11,9 +11,20 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="class">
-      <app-speedometer></app-speedometer>
-      <app-fuel-meter></app-fuel-meter>
-      <app-capacity></app-capacity>
+      <app-speedometer *ngIf="isVelocimetroEnable"></app-speedometer>
+      <app-fuel-meter *ngIf="isCombustibleEnable"></app-fuel-meter>
+      <app-capacity *ngIf="isCapacidadEnable"></app-capacity>
+    </div>
+    <hr />
+    <div>
+      <button
+        type="button"
+        [ngClass]="isEnable ? 'btn btn-success' : 'btn btn-danger'"
+        (click)="onTurnOnOffVehicle()"
+        [disabled]="panicStatus"
+      >
+        {{ isEnable ? "Apagar" : "Prender" }} Auto
+      </button>
     </div>
     <hr />
   </div>

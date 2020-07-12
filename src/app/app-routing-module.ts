@@ -1,3 +1,4 @@
+import { SaveEveryEditComponent } from "./administrator/save-every-edit/save-every-edit.component";
 import { SensorDetailComponent } from "./administrator/sensor-detail/sensor-detail.component";
 import { SensorEditComponent } from "./administrator/sensor-edit/sensor-edit.component";
 import { SensorStartComponent } from "./administrator/sensor-start/sensor-start.component";
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
     children: [
       { path: "", component: SensorStartComponent },
       { path: "new", component: SensorEditComponent },
+      { path: "save-every", component: SaveEveryEditComponent },
       { path: ":id", component: SensorDetailComponent },
       { path: ":id/edit", component: SensorEditComponent },
     ],

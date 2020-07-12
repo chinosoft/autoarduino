@@ -48,21 +48,19 @@ export class SensorEditComponent implements OnInit {
     let sensorName = "";
     let sensorAlarm = "";
     let sensorEmail = "";
-    let sensorSaveEvery = "";
 
     if (this.editMode) {
       const sensor = this.sensorService.getSensor(this.id);
       sensorName = sensor.name;
       sensorAlarm = sensor.alarm;
       sensorEmail = sensor.email;
-      sensorSaveEvery = sensor.saveEvery;
     }
 
     this.sensorForm = new FormGroup({
       name: new FormControl(sensorName, Validators.required),
       alarm: new FormControl(sensorAlarm, Validators.required),
+      isEnable: new FormControl(true),
       email: new FormControl(sensorEmail, Validators.required),
-      saveEvery: new FormControl(sensorSaveEvery, Validators.required),
     });
   }
 }

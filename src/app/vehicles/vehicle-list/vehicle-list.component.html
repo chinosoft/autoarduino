@@ -11,5 +11,14 @@
       [vehicle]="vehicleElem"
       [index]="i"
     ></app-vehicle-item>
+    <hr />
+  </div>
+  <div class="col-xs-12">
+    <button
+      [ngClass]="panicButtomOn ? 'btn btn-success' : 'btn btn-danger'"
+      (click)="onPanic()"
+    >
+      BOTON DE PANICO
+    </button>
   </div>
 </div>

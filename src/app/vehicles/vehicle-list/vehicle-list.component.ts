@@ -13,6 +13,7 @@ import { Subscription } from "rxjs";
 export class VehicleListComponent implements OnInit, OnDestroy {
   vehicles: Vehicle[];
   subscription: Subscription;
+  panicButtomOn: boolean;
 
   constructor(
     private vehicleService: VehicleService,
@@ -27,12 +28,28 @@ export class VehicleListComponent implements OnInit, OnDestroy {
         this.vehicles = vehicles;
       }
     );
+    this.dataStorageService.getPanicStatus().subscribe((response) => {
+      this.panicButtomOn = !!response;
+    });
     this.vehicles = this.vehicleService.getVehicles();
     this.dataStorageService.fetchVehicles().subscribe();
   }
 
   onNewCar() {
     this.router.navigate(["new"], { relativeTo: this.route });
+  }
+
+  switchMode() {
+    this.panicButtomOn = !this.panicButtomOn;
+    if (this.panicButtomOn === true) {
+      this.dataStorageService.saveTurnOnOrOffVehicle(false);
+    }
+  }
+
+  onPanic() {
+    this.switchMode();
+    this.dataStorageService.savePanicStatus(this.panicButtomOn);
+    this.router.navigate(["../"], { relativeTo: this.route });
   }
 
   ngOnDestroy() {
