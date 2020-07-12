@@ -4,8 +4,9 @@ import { Vehicle } from "./../vehicles/vehicle.model";
 import { AuthService } from "./auth.service";
 import { VehicleService } from "./vehicle.service";
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { take, exhaustMap, map, tap } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class DataStorageService {
@@ -43,6 +44,17 @@ export class DataStorageService {
     const sensors = this.sensorService.getSensors();
     this.http
       .put(`https://autoarduino-2b80f.firebaseio.com/Sensors.json`, sensors)
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+
+  updateSensorStatus(id: number, status: boolean) {
+    this.http
+      .put(
+        `https://autoarduino-2b80f.firebaseio.com/Sensors/${id}/isEnable.json`,
+        status
+      )
       .subscribe((response) => {
         console.log(response);
       });
@@ -88,6 +100,26 @@ export class DataStorageService {
         this.sensorService.setSensors(sensors);
       })
     );
+  }
+
+  getSensor(id: number): Observable<SensorData> {
+    return this.http.get<SensorData>(
+      `https://autoarduino-2b80f.firebaseio.com/Sensors/${id}.json`
+    );
+  }
+
+  getSaveEvery(): Observable<string> {
+    return this.http.get<string>(
+      `https://autoarduino-2b80f.firebaseio.com/saveEvery.json`
+    );
+  }
+
+  saveEvery(number: string) {
+    this.http
+      .put(`https://autoarduino-2b80f.firebaseio.com/saveEvery.json`, number)
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 
   deleteVehicle(id: number) {

@@ -21,19 +21,11 @@ export class VehicleService {
   }
 
   getVehicle(index: number) {
-    this.test(index);
     return this.vehicles[index];
   }
 
   getVehicleData(index: number) {
     return this.vehicles[index].data;
-  }
-
-  test(index: number) {
-    const vehicleData = this.vehicles[index].data;
-    let lastElement = vehicleData.length;
-    lastElement++;
-    vehicleData[lastElement].speed;
   }
 
   addVehicle(vehicle: Vehicle) {

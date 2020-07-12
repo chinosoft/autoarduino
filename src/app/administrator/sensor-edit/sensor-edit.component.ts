@@ -55,7 +55,6 @@ export class SensorEditComponent implements OnInit {
       sensorName = sensor.name;
       sensorAlarm = sensor.alarm;
       sensorEmail = sensor.email;
-      sensorSaveEvery = sensor.saveEvery;
     }
 
     this.sensorForm = new FormGroup({

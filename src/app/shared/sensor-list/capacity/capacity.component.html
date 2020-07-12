@@ -4,15 +4,3 @@
   [options]="options"
   [name]="name"
 ></rg-gauge-chart>
-<hr />
-<div>
-  <div>
-    <button
-      type="button"
-      [ngClass]="isEnable ? 'btn btn-success' : 'btn btn-danger'"
-      (click)="onSwitchMode()"
-    >
-      {{ isEnable ? "Deshabilitar" : "Habilitar" }} Sensor
-    </button>
-  </div>
-</div>
