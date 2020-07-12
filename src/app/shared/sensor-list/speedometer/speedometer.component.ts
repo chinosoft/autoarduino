@@ -8,6 +8,7 @@ import { interval, Subscription } from "rxjs";
 })
 export class SpeedometerComponent implements OnInit {
   mySubscription: Subscription;
+  isEnable = true;
 
   public canvasWidth = 230;
   public needleValue = 0;
@@ -25,6 +26,14 @@ export class SpeedometerComponent implements OnInit {
   };
 
   constructor() {}
+
+  onSwitchMode() {
+    this.isEnable = !this.isEnable;
+  }
+
+  isSensorEnabled() {
+    return this.isEnable;
+  }
 
   loop() {
     let numb = 0;

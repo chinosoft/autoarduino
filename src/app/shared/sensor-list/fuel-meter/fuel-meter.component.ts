@@ -6,6 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./fuel-meter.component.css"],
 })
 export class FuelMeterComponent implements OnInit {
+  isEnable = true;
   public canvasWidth = 230;
   public needleValue = 90;
   public centralLabel = "";
@@ -24,4 +25,12 @@ export class FuelMeterComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  onSwitchMode() {
+    this.isEnable = !this.isEnable;
+  }
+
+  isSensorEnabled() {
+    return this.isEnable;
+  }
 }
