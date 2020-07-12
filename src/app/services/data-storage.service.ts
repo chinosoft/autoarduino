@@ -137,6 +137,23 @@ export class DataStorageService {
     );
   }
 
+  savePanicStatus(onOrOff: boolean) {
+    this.http
+      .put(
+        `https://autoarduino-2b80f.firebaseio.com/buttomPanicOn.json`,
+        onOrOff
+      )
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+
+  getPanicStatus() {
+    return this.http.get<string>(
+      `https://autoarduino-2b80f.firebaseio.com/buttomPanicOn.json`
+    );
+  }
+
   deleteVehicle(id: number) {
     return this.http
       .delete(`https://autoarduino-2b80f.firebaseio.com/Cars/${id}.json`)

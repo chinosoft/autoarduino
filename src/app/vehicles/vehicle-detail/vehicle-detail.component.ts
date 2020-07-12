@@ -16,6 +16,8 @@ export class VehicleDetailComponent implements OnInit {
   id: number;
   subscription: Subscription;
   sensors: SensorData[];
+  isEnable = true;
+  panicStatus: boolean;
   isVelocimetroEnable = false;
   isCapacidadEnable = false;
   isCombustibleEnable = false;
@@ -32,10 +34,29 @@ export class VehicleDetailComponent implements OnInit {
       this.id = +params.id;
       this.vehicle = this.vehicleService.getVehicle(this.id);
     });
+    this.getPanicStatus();
+    this.dataStorageService.getVehicleStatus().subscribe((response) => {
+      this.isEnable = !!response;
+    });
     this.dataStorageService.fetchSensors().subscribe((response) => {
       this.sensors = response;
       this.updateStatus();
     });
+  }
+
+  switchMode() {
+    this.isEnable = !this.isEnable;
+  }
+
+  getPanicStatus() {
+    this.dataStorageService.getPanicStatus().subscribe((response) => {
+      this.panicStatus = !!response;
+    });
+  }
+
+  onTurnOnOffVehicle() {
+    this.switchMode();
+    this.dataStorageService.saveTurnOnOrOffVehicle(this.isEnable);
   }
 
   updateStatus() {

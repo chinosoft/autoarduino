@@ -16,7 +16,6 @@ export class SensorDetailComponent implements OnInit {
   velocimetroSelected = false;
   fuelSelected = false;
   capacitySelected = false;
-  isEnable = true;
   isSensorEnable = false;
 
   constructor(
@@ -31,16 +30,9 @@ export class SensorDetailComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.id = +params.id;
       this.sensor = this.sensorService.getSensor(this.id);
-      this.dataStorageService.getVehicleStatus().subscribe((response) => {
-        this.isEnable = !!response;
-      });
       this.isSensorEnable = this.sensor.isEnable;
       this.onSwitchMode(this.sensor);
     });
-  }
-
-  switchMode() {
-    this.isEnable = !this.isEnable;
   }
 
   onSwtichSensorStatus() {
@@ -76,10 +68,5 @@ export class SensorDetailComponent implements OnInit {
 
   onEditSensor() {
     this.router.navigate(["edit"], { relativeTo: this.route });
-  }
-
-  onTurnOnOffVehicle() {
-    this.switchMode();
-    this.dataStorageService.saveTurnOnOrOffVehicle(this.isEnable);
   }
 }

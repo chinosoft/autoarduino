@@ -42,4 +42,8 @@ export class SensorService {
     const sensor = this.getSensor(index);
     return sensor.isEnable;
   }
+
+  limitExceeded(sensorName: string) {
+    console.log("Limite excedido del sensor " + sensorName);
+  }
 }

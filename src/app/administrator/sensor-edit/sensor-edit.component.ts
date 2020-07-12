@@ -59,6 +59,7 @@ export class SensorEditComponent implements OnInit {
     this.sensorForm = new FormGroup({
       name: new FormControl(sensorName, Validators.required),
       alarm: new FormControl(sensorAlarm, Validators.required),
+      isEnable: new FormControl(true),
       email: new FormControl(sensorEmail, Validators.required),
     });
   }
