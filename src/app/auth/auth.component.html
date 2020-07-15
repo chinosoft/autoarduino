@@ -45,11 +45,10 @@
           minlength="6"
         />
       </div>
-      <div>
+      <div class="contenedor">
         <button class="btn btn-primary" [disabled]="!authForm.valid">
           {{ isLoginMode ? "Iniciar Sesion" : "Registrar" }}
         </button>
-        |
         <button class="btn btn-primary" (click)="onSwitchMode()">
           Cambiar a {{ isLoginMode ? "Registrarse" : "Iniciar Sesion" }}
         </button>

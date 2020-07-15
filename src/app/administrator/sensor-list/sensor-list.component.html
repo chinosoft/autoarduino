@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="contenedor col-xs-12">
+    <button class="btn btn-success" (click)="onNewSensor()">
+      Nuevo Sensor
+    </button>
+    <button class="btn btn-primary" (click)="onEditSaveEvery()">
+      Configuar guardado
+    </button>
+  </div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-xs-12">
+    <app-sensor-item
+      *ngFor="let sensorElem of sensors; let i = index"
+      [sensor]="sensorElem"
+      [index]="i"
+    ></app-sensor-item>
+  </div>
+</div>

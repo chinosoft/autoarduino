@@ -1,7 +1,6 @@
 import { Subject } from "rxjs";
 import { Vehicle } from "../vehicles/vehicle.model";
 import { Injectable } from "@angular/core";
-import { VehicleData } from "../shared/vehicledata.model";
 
 @Injectable()
 export class VehicleService {
@@ -22,6 +21,10 @@ export class VehicleService {
 
   getVehicle(index: number) {
     return this.vehicles[index];
+  }
+
+  getVehicleData(index: number) {
+    return this.vehicles[index].data;
   }
 
   addVehicle(vehicle: Vehicle) {

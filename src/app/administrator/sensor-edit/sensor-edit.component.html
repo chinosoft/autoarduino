@@ -1,15 +1,15 @@
 <div class="row">
   <div class="col-xs-12">
-    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="matricula">Matricula</label>
+            <label for="name">Nombre</label>
             <input
               type="text"
-              id="matricula"
+              id="name"
               class="form-control"
-              formControlName="matricula"
+              formControlName="name"
             />
           </div>
         </div>
@@ -17,11 +17,11 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="model">Modelo</label>
+            <label for="alarm">Umbral de Alarma</label>
             <input
               type="text"
-              id="model"
-              formControlName="model"
+              id="alarm"
+              formControlName="alarm"
               class="form-control"
             />
           </div>
@@ -30,11 +30,11 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="color">Color</label>
+            <label for="email">Email para enviar los reportes</label>
             <input
               type="text"
-              id="color"
-              formControlName="color"
+              id="email"
+              formControlName="email"
               class="form-control"
             />
           </div>
@@ -45,7 +45,7 @@
           <button
             type="submit"
             class="btn btn-success"
-            [disabled]="!vehicleForm.valid"
+            [disabled]="!sensorForm.valid"
           >
             Guardar
           </button>

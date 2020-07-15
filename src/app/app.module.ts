@@ -1,3 +1,4 @@
+import { SaveEveryEditComponent } from "./administrator/save-every-edit/save-every-edit.component";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
 import { HeaderComponent } from "./header/header.component";
 import { AuthComponent } from "./auth/auth.component";
@@ -20,8 +21,12 @@ import { VehicleService } from "./services/vehicle.service";
 import { AuthInterceptorService } from "./services/auth-interceptor.service";
 import { SpeedometerComponent } from "./shared/sensor-list/speedometer/speedometer.component";
 import { FuelMeterComponent } from "./shared/sensor-list/fuel-meter/fuel-meter.component";
-import { CapacityComponent } from './shared/sensor-list/capacity/capacity.component';
-
+import { CapacityComponent } from "./shared/sensor-list/capacity/capacity.component";
+import { SensorListComponent } from "./administrator/sensor-list/sensor-list.component";
+import { SensorItemComponent } from "./administrator/sensor-list/sensor-item/sensor-item.component";
+import { SensorDetailComponent } from "./administrator/sensor-detail/sensor-detail.component";
+import { SensorEditComponent } from "./administrator/sensor-edit/sensor-edit.component";
+import { SensorStartComponent } from "./administrator/sensor-start/sensor-start.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +43,12 @@ import { CapacityComponent } from './shared/sensor-list/capacity/capacity.compon
     SpeedometerComponent,
     FuelMeterComponent,
     CapacityComponent,
+    SensorListComponent,
+    SensorItemComponent,
+    SensorDetailComponent,
+    SensorEditComponent,
+    SensorStartComponent,
+    SaveEveryEditComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,7 +18,7 @@ export interface AuthResponseData {
 @Injectable({ providedIn: "root" })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
-  userAdmin = false;
+  userAdmin = true;
   private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -71,7 +71,7 @@ export class AuthService {
   }
 
   getIsAdmin(email: string) {
-    this.userAdmin = email == "admin@admin.com";
+    this.userAdmin = email === "admin@admin.com";
   }
 
   isAdmin() {

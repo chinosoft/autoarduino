@@ -1,3 +1,7 @@
+import { SaveEveryEditComponent } from "./administrator/save-every-edit/save-every-edit.component";
+import { SensorDetailComponent } from "./administrator/sensor-detail/sensor-detail.component";
+import { SensorEditComponent } from "./administrator/sensor-edit/sensor-edit.component";
+import { SensorStartComponent } from "./administrator/sensor-start/sensor-start.component";
 import { AuthComponent } from "./auth/auth.component";
 import { AdministratorComponent } from "./administrator/administrator.component";
 import { VehiclesComponent } from "./vehicles/vehicles.component";
@@ -7,6 +11,7 @@ import { VehicleEditComponent } from "./vehicles/vehicle-edit/vehicle-edit.compo
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AuthGuard } from "./auth/auth.guard";
+import { AdminGuard } from "./auth/admin.guard";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/vehicles", pathMatch: "full" },
@@ -21,7 +26,18 @@ const appRoutes: Routes = [
       { path: ":id/edit", component: VehicleEditComponent },
     ],
   },
-  { path: "admin-view", component: AdministratorComponent },
+  {
+    path: "admin-view",
+    component: AdministratorComponent,
+    canActivate: [AuthGuard, AdminGuard],
+    children: [
+      { path: "", component: SensorStartComponent },
+      { path: "new", component: SensorEditComponent },
+      { path: "save-every", component: SaveEveryEditComponent },
+      { path: ":id", component: SensorDetailComponent },
+      { path: ":id/edit", component: SensorEditComponent },
+    ],
+  },
   { path: "auth", component: AuthComponent },
   { path: "**", redirectTo: "/vehicles" },
 ];
