@@ -38,13 +38,14 @@ export class SpeedometerComponent implements OnInit {
 
   loop() {
     let numb = 0;
-    const sensor = this.sensorService.getSensor(this.id);
-    this.mySubscription = interval(100).subscribe((test) => {
+
+    this.mySubscription = interval(1000).subscribe((test) => {
       this.dataStorageService.getVehicleStatus().subscribe((response) => {
         this.isEnable = !!response;
       });
+      const sensor = this.sensorService.getSensor(this.id);
       if (numb !== 220 && this.isEnable) {
-        if (numb === +sensor.alarm) {
+        if (numb === +sensor.alarm && sensor.isEnable) {
           this.sensorService.limitExceeded(sensor.name);
         }
         numb++;
