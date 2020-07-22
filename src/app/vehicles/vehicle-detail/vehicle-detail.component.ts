@@ -18,6 +18,7 @@ export class VehicleDetailComponent implements OnInit {
   sensors: SensorData[];
   isEnable = true;
   panicStatus: boolean;
+  delay: any;
   isVelocimetroEnable = false;
   isCapacidadEnable = false;
   isCombustibleEnable = false;
