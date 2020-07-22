@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-import { Injectable } from '@angular/core';
-import { Observable, of } from "rxjs";
-import { map, catchError } from "rxjs/operators";
-import { ISensor } from './../interfaces/sensor';
-
-
-import { Board, Led } from 'johnny-five'; 
-
-@Injectable({
-  providedIn: 'root'
-})
-export class SensorService {
-
-  constructor(private sensor: ISensor) { }
-
-  public board = new Board().on('ready', () => { const led = new Led(13); led.blink(500); })
- 
-   
-  
-=======
 import { Subject } from "rxjs";
 import { SensorData } from "./../shared/sensordata.model";
 import { Injectable } from "@angular/core";
@@ -67,5 +46,5 @@ export class SensorService {
   limitExceeded(sensorName: string) {
     console.log("Limite excedido del sensor " + sensorName);
   }
->>>>>>> e27bf41518cf41c2b94605f44e1865631b2790af
+
 }
