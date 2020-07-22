@@ -43,7 +43,7 @@ export class CapacityComponent implements OnInit {
         }
         this.sensorService.setCapacitySensor(this.number.data);
         this.bottomLabel = String(this.number.data);
-        this.needleValue = (this.number.data * 100) / 180;
+        this.needleValue = (this.number.data * 100) / 25;
       });
     });
   }

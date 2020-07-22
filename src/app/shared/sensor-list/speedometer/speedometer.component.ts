@@ -68,7 +68,7 @@ export class SpeedometerComponent implements OnInit, OnDestroy {
           }
           this.sensorService.setSpeedSensor(this.number.data);
           this.bottomLabel = String(this.number.data);
-          this.needleValue = (this.number.data * 100) / 180;
+          this.needleValue = (this.number.data * 100) / 220;
         }
       });
     });

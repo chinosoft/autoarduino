@@ -45,7 +45,7 @@ export class FuelMeterComponent implements OnInit, OnDestroy {
         }
         this.sensorService.setFuelSensor(this.number.data);
         this.bottomLabel = String(this.number.data);
-        this.needleValue = (this.number.data * 100) / 180;
+        this.needleValue = (this.number.data * 100) / 100;
       });
     });
   }
