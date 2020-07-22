@@ -49,7 +49,7 @@ export class VehicleListComponent implements OnInit, OnDestroy {
   onPanic() {
     this.switchMode();
     this.dataStorageService.savePanicStatus(this.panicButtomOn);
-    this.router.navigate(["../"], { relativeTo: this.route });
+    this.router.navigate(["/vehicles"]);
   }
 
   ngOnDestroy() {
