@@ -1,11 +1,19 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Subscription, interval } from "rxjs";
+import { ActivatedRoute, Params } from "@angular/router";
+import { SensorService } from "../../../services/sensor.service";
+import { DataStorageService } from "../../../services/data-storage.service";
 
 @Component({
   selector: "app-fuel-meter",
   templateUrl: "./fuel-meter.component.html",
   styleUrls: ["./fuel-meter.component.css"],
 })
-export class FuelMeterComponent implements OnInit {
+export class FuelMeterComponent implements OnInit, OnDestroy {
+  mySubscription: Subscription;
+  id: number;
+  number: any;
+
   public canvasWidth = 230;
   public needleValue = 90;
   public centralLabel = "";
@@ -21,7 +29,35 @@ export class FuelMeterComponent implements OnInit {
     needleStartValue: 20,
   };
 
-  constructor() {}
+  constructor(
+    private dataStorageService: DataStorageService,
+    private sensorService: SensorService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit() {}
+  loop() {
+    const sensor = this.sensorService.getSensor(1);
+    this.mySubscription = interval(1000).subscribe(() => {
+      this.dataStorageService.getFuelSensorData().subscribe((response) => {
+        this.number = response;
+        if (this.number.data >= +sensor.alarm && sensor.isEnable) {
+          this.sensorService.limitExceeded(sensor.name);
+        }
+        this.sensorService.setFuelSensor(this.number.data);
+        this.bottomLabel = String(this.number.data);
+        this.needleValue = (this.number.data * 100) / 100;
+      });
+    });
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params["id"];
+    });
+    this.loop();
+  }
+
+  ngOnDestroy() {
+    this.mySubscription.unsubscribe();
+  }
 }

@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { take, exhaustMap, map, tap } from "rxjs/operators";
 import { Observable } from "rxjs";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import { VehicleData } from "../shared/vehicledata.model";
 
 @Injectable({ providedIn: "root" })
 export class DataStorageService {
@@ -28,8 +28,13 @@ export class DataStorageService {
       });
   }
 
-  storeVehicleData(id: number) {
-    const vehicleData = this.vehicleService.getVehicleData(id);
+  storeVehicleData(id: number, speed: number, fuel: number, capacity: number) {
+    const vehicleData = new VehicleData(
+      speed,
+      fuel,
+      capacity,
+      new Date(Date.now()).toLocaleDateString("es-ES")
+    );
 
     this.http
       .post(
@@ -59,6 +64,18 @@ export class DataStorageService {
       .subscribe((response) => {
         console.log(response);
       });
+  }
+
+  getSpeedSensorData(): Observable<number> {
+    return this.http.get<number>("http://localhost:3000/Sensor1");
+  }
+
+  getFuelSensorData(): Observable<number> {
+    return this.http.get<number>("http://localhost:3000/Sensor2");
+  }
+
+  getCapacitySensorData(): Observable<number> {
+    return this.http.get<number>("http://localhost:3000/Sensor3");
   }
 
   fetchVehicles() {
