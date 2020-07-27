@@ -64,11 +64,13 @@ export class SpeedometerComponent implements OnInit, OnDestroy {
         this.number = response;
         if (this.number.speed !== 220 && this.isEnable) {
           if (this.number.speed >= +sensor.alarm && sensor.isEnable) {
-            this.sensorService.limitExceeded(sensor.name);
+            this.sensorService.limitExceeded("on");
+          } else {
+            this.sensorService.limitExceeded("off");
           }
           this.sensorService.setSpeedSensor(this.number.speed);
-          this.bottomLabel = String(this.number.speed);
-          this.needleValue = (this.number.speed * 100) / 220;
+          this.bottomLabel = String(Math.round(this.number.speed));
+          this.needleValue = (Math.round(this.number.speed) * 100) / 220;
         }
       });
     });

@@ -39,11 +39,11 @@ export class CapacityComponent implements OnInit {
       this.dataStorageService.getSensorData().subscribe((response) => {
         this.number = response;
         if (this.number.capacity >= +sensor.alarm && sensor.isEnable) {
-          this.sensorService.limitExceeded(sensor.name);
+          this.sensorService.limitExceeded("on");
         }
         this.sensorService.setCapacitySensor(this.number.capacity);
-        this.bottomLabel = String(this.number.capacity);
-        this.needleValue = (this.number.capacity * 100) / 25;
+        this.bottomLabel = String(Math.round(this.number.capacity));
+        this.needleValue = (Math.round(this.number.capacity) * 100) / 25;
       });
     });
   }

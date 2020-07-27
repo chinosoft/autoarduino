@@ -41,11 +41,11 @@ export class FuelMeterComponent implements OnInit, OnDestroy {
       this.dataStorageService.getSensorData().subscribe((response) => {
         this.number = response;
         if (this.number.fuel >= +sensor.alarm && sensor.isEnable) {
-          this.sensorService.limitExceeded(sensor.name);
+          this.sensorService.limitExceeded("on");
         }
         this.sensorService.setFuelSensor(this.number.fuel);
-        this.bottomLabel = String(this.number.fuel);
-        this.needleValue = (this.number.fuel * 100) / 100;
+        this.bottomLabel = String(Math.round(this.number.fuel));
+        this.needleValue = (Math.round(this.number.fuel) * 100) / 100;
       });
     });
   }
