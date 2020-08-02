@@ -2,7 +2,7 @@ import { SensorService } from "./../../../services/sensor.service";
 import { ActivatedRoute, Params } from "@angular/router";
 import { VehicleService } from "./../../../services/vehicle.service";
 import { DataStorageService } from "./../../../services/data-storage.service";
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, OnChanges } from "@angular/core";
 import { interval, Subscription } from "rxjs";
 
 @Component({
@@ -53,19 +53,31 @@ export class SpeedometerComponent implements OnInit, OnDestroy {
     });
   }
 
+  sendEmail(sensor: any) {
+    setInterval(() => {
+      console.log("que wea: " + +sensor.alarm);
+      console.log("que numero viene: " + this.sensorService.getSpeedSensor());
+      
+      
+      if (this.sensorService.getSpeedSensor() >= +sensor.alarm && sensor.isEnable) {
+        this.sensorService.limitExceeded("on");
+        this.sensorService.sendEmail(sensor.name, sensor.email, String(new Date(Date.now())));
+      }
+    }, 30000);
+  }
+
   loop() {
     const sensor = this.sensorService.getSensor(this.id);
     this.saveVehicleData(this.id);
+    this.sendEmail(sensor);
     this.mySubscription = interval(1000).subscribe(() => {
       this.dataStorageService.getVehicleStatus().subscribe((response) => {
         this.isEnable = !!response;
       });
       this.dataStorageService.getSensorData().subscribe((response) => {
         this.number = response;
-        if (this.number.speed !== 220 && this.isEnable) {
-          if (this.number.speed >= +sensor.alarm && sensor.isEnable) {
-            this.sensorService.limitExceeded("on");
-          } else {
+        if (this.isEnable) {
+          if(this.number.speed <= sensor.alarm) {
             this.sensorService.limitExceeded("off");
           }
           this.sensorService.setSpeedSensor(this.number.speed);

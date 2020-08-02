@@ -77,4 +77,9 @@ export class SensorService {
       .subscribe((resp) => {});
   }
 
+  sendEmail(sensorName: string, email: string, date: string) {
+    this.http.post(`http://localhost:3000/mail`, {name: sensorName, emailTo: email, date: "ahora"}).subscribe((resp) => {console.log(resp);
+    })
+  }
+
 }

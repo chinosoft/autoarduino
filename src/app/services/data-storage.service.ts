@@ -30,10 +30,10 @@ export class DataStorageService {
 
   storeVehicleData(id: number, speed: number, fuel: number, capacity: number) {
     const vehicleData = new VehicleData(
-      speed,
-      fuel,
-      capacity,
-      new Date(Date.now()).toLocaleDateString("es-ES")
+      Math.round(speed),
+      Math.round(fuel),
+      Math.round(capacity),
+      String(new Date(Date.now()))
     );
 
     this.http
