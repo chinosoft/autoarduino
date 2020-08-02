@@ -66,16 +66,8 @@ export class DataStorageService {
       });
   }
 
-  getSpeedSensorData(): Observable<number> {
-    return this.http.get<number>("http://localhost:3000/Sensor1");
-  }
-
-  getFuelSensorData(): Observable<number> {
-    return this.http.get<number>("http://localhost:3000/Sensor2");
-  }
-
-  getCapacitySensorData(): Observable<number> {
-    return this.http.get<number>("http://localhost:3000/Sensor3");
+  getSensorData(): Observable<number> {
+    return this.http.get<number>("http://localhost:3000/sensor");
   }
 
   fetchVehicles() {

@@ -1,7 +1,7 @@
+import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { SensorData } from "./../shared/sensordata.model";
 import { Injectable } from "@angular/core";
-import { DataStorageService } from "./data-storage.service";
 
 @Injectable({ providedIn: "root" })
 export class SensorService {
@@ -10,7 +10,7 @@ export class SensorService {
   fuelSensor: number;
   capacitySensor: number;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   private sensors: SensorData[] = [];
 
@@ -71,8 +71,10 @@ export class SensorService {
     return sensor.isEnable;
   }
 
-  limitExceeded(sensorName: string) {
-    console.log("Limite excedido del sensor " + sensorName);
+  limitExceeded(message: string) {
+    this.http
+      .get(`http://localhost:3000/led/${message}`, { responseType: "text" })
+      .subscribe((resp) => {});
   }
 
 }

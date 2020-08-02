@@ -36,14 +36,14 @@ export class CapacityComponent implements OnInit {
   loop() {
     const sensor = this.sensorService.getSensor(2);
     this.mySubscription = interval(1000).subscribe(() => {
-      this.dataStorageService.getCapacitySensorData().subscribe((response) => {
+      this.dataStorageService.getSensorData().subscribe((response) => {
         this.number = response;
-        if (this.number.data >= +sensor.alarm && sensor.isEnable) {
-          this.sensorService.limitExceeded(sensor.name);
+        if (this.number.capacity >= +sensor.alarm && sensor.isEnable) {
+          this.sensorService.limitExceeded("on");
         }
-        this.sensorService.setCapacitySensor(this.number.data);
-        this.bottomLabel = String(this.number.data);
-        this.needleValue = (this.number.data * 100) / 25;
+        this.sensorService.setCapacitySensor(this.number.capacity);
+        this.bottomLabel = String(Math.round(this.number.capacity));
+        this.needleValue = (Math.round(this.number.capacity) * 100) / 25;
       });
     });
   }
