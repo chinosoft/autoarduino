@@ -37,11 +37,18 @@ export class FuelMeterComponent implements OnInit, OnDestroy {
 
   loop() {
     const sensor = this.sensorService.getSensor(1);
+    this.sensorService.sendEmail(
+      sensor.name,
+      sensor.email,
+      new Date(Date.now()),
+      +sensor.alarm,
+      this.sensorService.getFuelSensor()
+    );
     this.mySubscription = interval(1000).subscribe(() => {
       this.dataStorageService.getSensorData().subscribe((response) => {
         this.number = response;
-        if (this.number.fuel >= +sensor.alarm && sensor.isEnable) {
-          //this.sensorService.limitExceeded("on");
+        if (this.number.fuel <= +sensor.alarm && sensor.isEnable) {
+          this.sensorService.limitFuelExceeded("off");
         }
         this.sensorService.setFuelSensor(this.number.fuel);
         this.bottomLabel = String(Math.round(this.number.fuel));

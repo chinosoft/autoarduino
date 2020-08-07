@@ -14,17 +14,19 @@ export class CapacityComponent implements OnInit {
   id: number;
   number: any;
 
-  public chartWidth = 230;
-  public needleValue = 90;
+  public canvasWidth = 230;
+  public needleValue = 4;
+  public centralLabel = "";
   public name = "Capacidad";
-  public bottomLabel = "20";
-
+  public bottomLabel = "4";
   public options = {
     hasNeedle: true,
-    outerNeedle: true,
-    needleColor: "rgb(166,206,227)",
-    rangeLabel: ["0", "25 Tons"],
-    centralLabel: "2",
+    needleColor: "gray",
+    needleUpdateSpeed: 1000,
+    arcColors: ["rgb(255,84,84)", "rgb(239,214,19)", "rgb(61,204,91)"],
+    arcDelimiters: [35, 75],
+    rangeLabel: ["0", "25 tons"],
+    needleStartValue: 4,
   };
 
   constructor(
@@ -35,11 +37,18 @@ export class CapacityComponent implements OnInit {
 
   loop() {
     const sensor = this.sensorService.getSensor(2);
+    this.sensorService.sendEmail(
+      sensor.name,
+      sensor.email,
+      new Date(Date.now()),
+      +sensor.alarm,
+      this.sensorService.getCapacitySensor()
+    );
     this.mySubscription = interval(1000).subscribe(() => {
       this.dataStorageService.getSensorData().subscribe((response) => {
         this.number = response;
-        if (this.number.capacity >= +sensor.alarm && sensor.isEnable) {
-          this.sensorService.limitExceeded("on");
+        if (this.number.capacity <= +sensor.alarm && sensor.isEnable) {
+          this.sensorService.limitCapacityExceeded("off");
         }
         this.sensorService.setCapacitySensor(this.number.capacity);
         this.bottomLabel = String(Math.round(this.number.capacity));

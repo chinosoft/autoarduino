@@ -57,6 +57,11 @@ export class VehicleDetailComponent implements OnInit {
 
   onTurnOnOffVehicle() {
     this.switchMode();
+    if (this.isEnable) {
+      this.dataStorageService.turnLedVehicle("on");
+    } else {
+      this.dataStorageService.turnLedVehicle("off");
+    }
     this.dataStorageService.saveTurnOnOrOffVehicle(this.isEnable);
   }
 

@@ -42,7 +42,10 @@ export class VehicleListComponent implements OnInit, OnDestroy {
   switchMode() {
     this.panicButtomOn = !this.panicButtomOn;
     if (this.panicButtomOn === true) {
+      this.dataStorageService.turnLedPanic("on");
       this.dataStorageService.saveTurnOnOrOffVehicle(false);
+    } else {
+      this.dataStorageService.turnLedPanic("off");
     }
   }
 
@@ -50,6 +53,10 @@ export class VehicleListComponent implements OnInit, OnDestroy {
     this.switchMode();
     this.dataStorageService.savePanicStatus(this.panicButtomOn);
     this.router.navigate(["/vehicles"]);
+  }
+
+  onFetchData() {
+    this.dataStorageService.fetchVehicleData();
   }
 
   ngOnDestroy() {

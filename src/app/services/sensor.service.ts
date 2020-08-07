@@ -6,9 +6,9 @@ import { Injectable } from "@angular/core";
 @Injectable({ providedIn: "root" })
 export class SensorService {
   sensorChanged = new Subject<SensorData[]>();
-  speedSensor: number;
-  fuelSensor: number;
-  capacitySensor: number;
+  speedSensor: number = 0;
+  fuelSensor: number = 0;
+  capacitySensor: number = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -71,15 +71,52 @@ export class SensorService {
     return sensor.isEnable;
   }
 
-  limitExceeded(message: string) {
+  limitSpeedExceeded(message: string) {
     this.http
       .get(`http://localhost:3000/led/${message}`, { responseType: "text" })
       .subscribe((resp) => {});
   }
 
-  sendEmail(sensorName: string, email: string, date: string) {
-    this.http.post(`http://localhost:3000/mail`, {name: sensorName, emailTo: email, date: "ahora"}).subscribe((resp) => {console.log(resp);
-    })
+  limitFuelExceeded(message: string) {
+    this.http
+      .get(`http://localhost:3000/led2/${message}`, { responseType: "text" })
+      .subscribe((resp) => {});
   }
 
+  limitCapacityExceeded(message: string) {
+    this.http
+      .get(`http://localhost:3000/led3/${message}`, { responseType: "text" })
+      .subscribe((resp) => {});
+  }
+
+  sendEmail(
+    sensorName: string,
+    email: string,
+    date: Date,
+    alarm: number,
+    number: number
+  ) {
+    if (number >= alarm) {
+      if (sensorName === "Velocimetro") {
+        this.limitSpeedExceeded("on");
+      }
+      if (sensorName === "Combustible") {
+        this.limitFuelExceeded("on");
+      }
+      if (sensorName === "Capacidad") {
+        this.limitCapacityExceeded("on");
+      }
+
+      this.http
+        .post(`http://localhost:3000/mail`, {
+          name: sensorName,
+          emailTo: email,
+          number: number,
+          date: date,
+        })
+        .subscribe((resp) => {
+          console.log(resp);
+        });
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import { VehicleData } from "./../shared/vehicledata.model";
 import { SensorData } from "./../shared/sensordata.model";
 import { SensorService } from "./sensor.service";
 import { Vehicle } from "./../vehicles/vehicle.model";
@@ -7,7 +8,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { take, exhaustMap, map, tap } from "rxjs/operators";
 import { Observable } from "rxjs";
-import { VehicleData } from "../shared/vehicledata.model";
 
 @Injectable({ providedIn: "root" })
 export class DataStorageService {
@@ -44,6 +44,24 @@ export class DataStorageService {
       .subscribe((response) => {
         console.log(response);
       });
+  }
+
+  fetchVehicleData() {
+    this.http.get("http://localhost:3000/vehicle-data").subscribe((resp) => {
+      console.log(resp);
+    });
+  }
+
+  turnLedVehicle(message: string) {
+    this.http
+      .get(`http://localhost:3000/led4/${message}`, { responseType: "text" })
+      .subscribe((resp) => {});
+  }
+
+  turnLedPanic(message: string) {
+    this.http
+      .get(`http://localhost:3000/led5/${message}`, { responseType: "text" })
+      .subscribe((resp) => {});
   }
 
   storeSensor() {
