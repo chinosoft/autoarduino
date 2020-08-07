@@ -1,14 +1,7 @@
 import { SensorService } from "./../../../services/sensor.service";
 import { ActivatedRoute, Params } from "@angular/router";
-import { VehicleService } from "./../../../services/vehicle.service";
 import { DataStorageService } from "./../../../services/data-storage.service";
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  OnChanges,
-  ChangeDetectorRef,
-} from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { interval, Subscription } from "rxjs";
 
 @Component({
@@ -16,7 +9,7 @@ import { interval, Subscription } from "rxjs";
   templateUrl: "./speedometer.component.html",
   styleUrls: ["./speedometer.component.css"],
 })
-export class SpeedometerComponent implements OnInit, OnDestroy, OnChanges {
+export class SpeedometerComponent implements OnInit, OnDestroy {
   mySubscription: Subscription;
   isEnable: boolean;
   id: number;
@@ -44,8 +37,7 @@ export class SpeedometerComponent implements OnInit, OnDestroy, OnChanges {
   constructor(
     private dataStorageService: DataStorageService,
     private sensorService: SensorService,
-    private route: ActivatedRoute,
-    private cd: ChangeDetectorRef
+    private route: ActivatedRoute
   ) {}
 
   saveVehicleData(id: number) {
@@ -63,9 +55,26 @@ export class SpeedometerComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
+  sendEmail(sensor: any) {
+    let intervalId2 = setInterval(() => {
+      if (
+        this.sensorService.getSpeedSensor() >= +sensor.alarm &&
+        sensor.isEnable
+      ) {
+        this.sensorService.limitSpeedExceeded("on");
+        this.sensorService.sendEmail(
+          sensor.name,
+          sensor.email,
+          new Date(Date.now())
+        );
+      }
+    }, 30000);
+  }
+
   loop() {
     const sensor = this.sensorService.getSensor(this.id);
     this.saveVehicleData(this.id);
+    this.sendEmail(sensor);
     this.mySubscription = interval(1000).subscribe(() => {
       this.dataStorageService.getVehicleStatus().subscribe((response) => {
         this.isEnable = !!response;
@@ -89,17 +98,6 @@ export class SpeedometerComponent implements OnInit, OnDestroy, OnChanges {
       this.id = +params["id"];
     });
     this.loop();
-    this.cd.detectChanges();
-  }
-
-  ngOnChanges() {
-    this.sensorService.sendEmail(
-      this.sensor.name,
-      this.sensor.email,
-      new Date(Date.now()),
-      +this.sensor.alarm,
-      Math.round(this.sensorService.getSpeedSensor())
-    );
   }
 
   ngOnDestroy() {

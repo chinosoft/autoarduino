@@ -13,6 +13,7 @@ export class CapacityComponent implements OnInit {
   mySubscription: Subscription;
   id: number;
   number: any;
+  intervalId;
 
   public canvasWidth = 230;
   public needleValue = 4;
@@ -23,8 +24,8 @@ export class CapacityComponent implements OnInit {
     hasNeedle: true,
     needleColor: "gray",
     needleUpdateSpeed: 1000,
-    arcColors: ["rgb(255,84,84)", "rgb(239,214,19)", "rgb(61,204,91)"],
-    arcDelimiters: [35, 75],
+    arcColors: ["rgb(61,204,91)", "rgb(239,214,19)", "rgb(255,84,84)"],
+    arcDelimiters: [45, 85],
     rangeLabel: ["0", "25 tons"],
     needleStartValue: 4,
   };
@@ -35,15 +36,25 @@ export class CapacityComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  sendEmail(sensor: any) {
+    this.intervalId = setInterval(() => {
+      if (
+        this.sensorService.getCapacitySensor() >= +sensor.alarm &&
+        sensor.isEnable
+      ) {
+        this.sensorService.limitCapacityExceeded("on");
+        this.sensorService.sendEmail(
+          sensor.name,
+          sensor.email,
+          new Date(Date.now())
+        );
+      }
+    }, 30000);
+  }
+
   loop() {
     const sensor = this.sensorService.getSensor(2);
-    this.sensorService.sendEmail(
-      sensor.name,
-      sensor.email,
-      new Date(Date.now()),
-      +sensor.alarm,
-      this.sensorService.getCapacitySensor()
-    );
+    this.sendEmail(sensor);
     this.mySubscription = interval(1000).subscribe(() => {
       this.dataStorageService.getSensorData().subscribe((response) => {
         this.number = response;
@@ -66,5 +77,6 @@ export class CapacityComponent implements OnInit {
 
   ngOnDestroy() {
     this.mySubscription.unsubscribe();
+    clearInterval(this.intervalId);
   }
 }

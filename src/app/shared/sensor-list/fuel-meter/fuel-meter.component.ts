@@ -13,6 +13,7 @@ export class FuelMeterComponent implements OnInit, OnDestroy {
   mySubscription: Subscription;
   id: number;
   number: any;
+  intervalId;
 
   public canvasWidth = 230;
   public needleValue = 90;
@@ -35,15 +36,25 @@ export class FuelMeterComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {}
 
+  sendEmail(sensor: any) {
+    this.intervalId = setInterval(() => {
+      if (
+        this.sensorService.getFuelSensor() >= +sensor.alarm &&
+        sensor.isEnable
+      ) {
+        this.sensorService.limitFuelExceeded("on");
+        this.sensorService.sendEmail(
+          sensor.name,
+          sensor.email,
+          new Date(Date.now())
+        );
+      }
+    }, 30000);
+  }
+
   loop() {
     const sensor = this.sensorService.getSensor(1);
-    this.sensorService.sendEmail(
-      sensor.name,
-      sensor.email,
-      new Date(Date.now()),
-      +sensor.alarm,
-      this.sensorService.getFuelSensor()
-    );
+    this.sendEmail(sensor);
     this.mySubscription = interval(1000).subscribe(() => {
       this.dataStorageService.getSensorData().subscribe((response) => {
         this.number = response;
@@ -66,5 +77,6 @@ export class FuelMeterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.mySubscription.unsubscribe();
+    clearInterval(this.intervalId);
   }
 }

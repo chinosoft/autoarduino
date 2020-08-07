@@ -89,34 +89,15 @@ export class SensorService {
       .subscribe((resp) => {});
   }
 
-  sendEmail(
-    sensorName: string,
-    email: string,
-    date: Date,
-    alarm: number,
-    number: number
-  ) {
-    if (number >= alarm) {
-      if (sensorName === "Velocimetro") {
-        this.limitSpeedExceeded("on");
-      }
-      if (sensorName === "Combustible") {
-        this.limitFuelExceeded("on");
-      }
-      if (sensorName === "Capacidad") {
-        this.limitCapacityExceeded("on");
-      }
-
-      this.http
-        .post(`http://localhost:3000/mail`, {
-          name: sensorName,
-          emailTo: email,
-          number: number,
-          date: date,
-        })
-        .subscribe((resp) => {
-          console.log(resp);
-        });
-    }
+  sendEmail(sensorName: string, email: string, date: Date) {
+    this.http
+      .post(`http://localhost:3000/mail`, {
+        name: sensorName,
+        emailTo: email,
+        date: date,
+      })
+      .subscribe((resp) => {
+        console.log(resp);
+      });
   }
 }
